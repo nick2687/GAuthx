@@ -2,7 +2,7 @@
 
 * Author: Nick Clark, (@nick2687)
 * Licensed under the GNU License.
-* Credit: Thanks go to Michael Kliewe, (@PHPGangsta) who built the GoogleAuthenticator class this Modx Extra is based on.
+* Credit: Thanks go to Michael Kliewe, (@PHPGangsta) who wrote the GoogleAuthenticator class this Modx Extra uses.
 * Dependancies: Login - https://github.com/splittingred/Login
 
 This Modx Extra enables use of the Google Authenticator mobile app for 2-factor-authentication in conjunction with  Shaun McCormick's Login Snippet (https://github.com/splittingred/Login). This Extra contains two snippets, one to generate secrets and present a QR-Code for scanning the secret. The other is used as a Login PreHook to validate codes when a user attempts to login.
