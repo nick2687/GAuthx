@@ -1,0 +1,22 @@
+
+<h3>Google Authenticator Setup</h3>
+<p>Your GAuthx secret has been created. It is: <strong>[[+secret]]</strong>.</p>
+<p>Please enter this code into your Google Authenticator app or scan the below QR code. </p>
+
+<p>
+    <img src="[[+qrCodeUrl]]" />    
+</p>
+
+<p>Once you have your Google Authenticator app configured, 
+please wait for the token to change and then enter it below to confirm everything is configured correctly.</p>
+
+<div>
+[[+response:is=``:then=``:else=`<h3>Error: [[+response]]</h3>`]]
+<form id="2FAxForm" action="[[~[[*id]]]]" type="POST">
+    <input type="hidden" name="id"  value="[[*id]]"/>
+    <input type="text" name="token"  />
+    <input type="hidden" name="secret"  value="[[+secret]]"/>
+    
+    <button type="submit">Validate Token</button>
+</form>
+</div>
