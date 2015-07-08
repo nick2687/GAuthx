@@ -1,4 +1,4 @@
-# GAuthx - Modx Extra
+# GAuthx
 
 Description
 ------
@@ -7,27 +7,24 @@ This Modx Extra enables use of the Google Authenticator mobile app for 2-factor-
 
 The system also includes a class for preventing replay-attack's by making sure that previously used codes cannot be reused. 
 
-Installing GAuthx
-------
+## Installing GAuthx
 
 You can install GAuthx via the standard MODx package manager.
 
-
-
-Usage - GAuthx Snippet
+GAuthx Snippet
 ------
 
 GAuthx creates a new Auth Secret for the currently logged in user, and provides them with a QR Code that can be scanned by any 2 Factor Authentication app. 
 
 Once the QR Code or Auth Secret has been inputed into the app, the user must then validate the token is set up correctly and working by using the supplied validation form. If the token supplied by the user validates, the auth secret will then be accociated with that users account and they will be required to use their authentication token upon each login going forward. 
 
-# Snippet Usage:
+## Snippet Usage:
 
 ```
 [[!GAuthx? &responseTpl=`GAuthxResponseTpl` &tpl=`GAuthxTpl`]] 
 ```
 
-# Properties - GAuthx
+## Properties - GAuthx
 GAuthx only has two available properties currently.
 
 * responseTpl (optional) : Chunk name used to format the response message
@@ -35,15 +32,15 @@ GAuthx only has two available properties currently.
 
 
 
-Usage - GAuthxHook:
-------
-
-
-# Properties - GAuthxHook
+# GAuthxHook
 
 
 
-# Development / Credits
+## Properties - GAuthxHook
+
+
+
+### Development / Credits
 
 * Author: Nick Clark, (@nick2687)
 * Licensed under the GNU License.
