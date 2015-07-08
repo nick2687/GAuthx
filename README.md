@@ -1,10 +1,5 @@
 # GAuthx - Modx Extra
 
-* Author: Nick Clark, (@nick2687)
-* Licensed under the GNU License.
-* Credit: Thanks go to Michael Kliewe, (@PHPGangsta) who wrote the GoogleAuthenticator class this Modx Extra uses.
-* Dependancies: Login - https://github.com/splittingred/Login
-
 Description
 ------
 
@@ -15,11 +10,42 @@ The system also includes a class for preventing replay-attack's by making sure t
 Installing GAuthx
 ------
 
-Go to System | Package Management on the main menu in the MODX Manager and click on the &quot;Download Extras&quot; button. That will take you to the Revolution Repository (AKA Web Transport Facility). Put GAuthx in the search box and press Enter. Click on the &quot;Download&quot; button, and once the package is downloaded, click on the &quot;Back to Package Manager&quot; button. That should bring you back to your Package Management grid. Click on the &quot;Install&quot; button next to GAuthx in the grid. The GAuthx package should now be installed.
+You can install GAuthx via the standard MODx package manager.
 
-Usage:
+
+
+Usage - GAuthx Snippet
+------
+
+GAuthx creates a new Auth Secret for the currently logged in user, and provides them with a QR Code that can be scanned by any 2 Factor Authentication app. 
+
+Once the QR Code or Auth Secret has been inputed into the app, the user must then validate the token is set up correctly and working by using the supplied validation form. If the token supplied by the user validates, the auth secret will then be accociated with that users account and they will be required to use their authentication token upon each login going forward. 
+
+# Snippet Usage:
+
+```
+[[!GAuthx? &responseTpl=`GAuthxResponseTpl` &tpl=`GAuthxTpl`]] 
+```
+
+# Properties - GAuthx
+GAuthx only has two available properties currently.
+
+* responseTpl (optional) : Chunk name used to format the response message
+* tpl (optional) : Chunk name used to format QR Code and Verification Form
+
+
+
+Usage - GAuthxHook:
 ------
 
 
-GAuthx Properties
-------
+# Properties - GAuthxHook
+
+
+
+# Development / Credits
+
+* Author: Nick Clark, (@nick2687)
+* Licensed under the GNU License.
+* Credit: Thanks go to Michael Kliewe, (@PHPGangsta) who wrote the GoogleAuthenticator class this Modx Extra uses.
+* Dependancies: Login - https://github.com/splittingred/Login
