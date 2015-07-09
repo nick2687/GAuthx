@@ -54,7 +54,7 @@ This Snippet is to be useds as a PRE-Hook for  Shaun McCormick's snippet "Login"
 
 #### Properties
 
-GAuthx only has two available properties currently.
+GAuthxHook currently can be passed the below properties
  
 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 <thead>
@@ -117,12 +117,13 @@ I have also included an example loginTpl that includes the token input.
 5. 2Factor-Authentication is not an end all security solution, it should be combined with other efforts such as securing your pages with SSL.
 
 
-#### Bugs & Feature Requests
+#### Bugs & Feature Requests:
 
 Please log any bugs / features quests on [Github](https://github.com/nick2687/GAuthx/issues)
 
-###### Credit
+##### Credit:
 GAuthx uses the [Google Authenticator](https://github.com/PHPGangsta/GoogleAuthenticator) class by [PHPGangsta](https://github.com/PHPGangsta) for generating QR Codes and validating user tokens.
+
 
 
 
