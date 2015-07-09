@@ -1,20 +1,93 @@
-<p>GAuthx is a Modx port of GoogleAuthenticator</p>
-
-<p>(Jump to <a href="[[~[[*id]]]]#propertiesTable">Properties Table</a>.)</p>
-
+<div class="mdl-color-text--grey-700 mdl-card__supporting-text">
+              
+              <h1>GAuthx</h1>
+<p>GAuthx enables the use of the Google Authenticator mobile app for 2-factor-authentication in conjunction with Shaun McCormick's Login Snippet (https://github.com/splittingred/Login). This Extra contains two snippets, one to generate secrets and present a QR-Code for scanning the secret. The other is used as a Login PreHook to validate codes when a user attempts to login.</p>
+<p>The system also includes a class for preventing replay-attack's by making sure that previously used codes cannot be reused.</p>
 <h3>Installing GAuthx</h3>
+<p>You can install GAuthx via the standard MODx package manager.</p>
+<h2>GAuthx Snippet</h2>
+<p>GAuthx creates a new Auth Secret for the currently logged in user, and provides them with a QR Code that can be scanned by any 2 Factor Authentication app.</p>
+<p>Once the QR Code or Auth Secret has been inputed into the app, the user must then validate the token is set up correctly and working by using the supplied validation form. If the token supplied by the user validates, the auth secret will then be accociated with that users account and they will be required to use their authentication token upon each login going forward.</p>
+<h4>Properties</h4>
+<table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp is-upgraded" data-upgraded=",MaterialDataTable">
+  <tbody><tr>
+    <th class="mdl-data-table__cell--non-numeric">Name</th>
+    <th class="mdl-data-table__cell--non-numeric">Type</th>
+    <th class="mdl-data-table__cell--non-numeric">Default</th>
+    <th class="mdl-data-table__cell--non-numeric">Description</th>
+  </tr>
+  <tr>
+    <td class="mdl-data-table__cell--non-numeric">responseTpl</td>
+    <td class="mdl-data-table__cell--non-numeric">Optional / String</td>
+    <td class="mdl-data-table__cell--non-numeric">GAuthxResponse</td>
+    <td class="mdl-data-table__cell--non-numeric"> Chunk name used to format the response message</td>
+  </tr>
+  <tr>
+    <td class="mdl-data-table__cell--non-numeric">tpl</td>
+    <td class="mdl-data-table__cell--non-numeric">Optional / String</td>
+    <td class="mdl-data-table__cell--non-numeric">GAuthxTpl</td>
+    <td class="mdl-data-table__cell--non-numeric">Chunk name used to format QR Code and Verification Form</td>
+  </tr>
+</tbody></table>
+<h4>Usage</h4>
+<pre><code><span class="hljs-class">[[<span class="hljs-modx-prefix">!</span><span class="hljs-modx-tag-name">GAuthx</span>?</span> <span class="hljs-modx-property-name">&amp;responseTpl</span>=`GAuthxResponseTpl` <span class="hljs-modx-property-name">&amp;tpl</span>=`GAuthxTpl`]] 
+</code></pre>
+<h2>GAuthxHook</h2>
+<p>This Snippet is to be useds as a PRE-Hook for  Shaun McCormick's snippet "Login" - it allows for you to add 2 factor authentication (using google authenticator) to your member only areas in any front-end context on your site.</p>
+<h4>Properties</h4>
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp is-upgraded" data-upgraded=",MaterialDataTable">
+<thead>
+  <tr>
+    <th class="mdl-data-table__cell--non-numeric">Name</th>
+    <th class="mdl-data-table__cell--non-numeric">Type</th>
+    <th>Default</th>
+    <th class="mdl-data-table__cell--non-numeric">Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td class="mdl-data-table__cell--non-numeric">tolerance</td>
+    <td class="mdl-data-table__cell--non-numeric">Optional / Integer</td>
+    <td>2</td>
+    <td class="mdl-data-table__cell--non-numeric">Sets the amount of time / tolerance you wish the authenticator to allow a provided token to be valid for.</td>
+  </tr>
+  <tr>
+    <td class="mdl-data-table__cell--non-numeric">historyLimit</td>
+    <td class="mdl-data-table__cell--non-numeric">Optional / Integer</td>
+    <td>10</td>
+    <td class="mdl-data-table__cell--non-numeric">Sets the number of provided tokens you wish to be remembered before a token could be used again.</td>
+  </tr>
+    <tr>
+    <td class="mdl-data-table__cell--non-numeric">loginTpl</td>
+    <td class="mdl-data-table__cell--non-numeric">Optional / String</td>
+    <td class="mdl-data-table__cell--non-numeric">GAuthxLoginTpl</td>
+    <td class="mdl-data-table__cell--non-numeric">Example Tpl for the Login snippet that includes the correct token input feild.</td>
+  </tr>
+  </tbody>
+</table>
+<h4>Usage</h4>
+<p>GAuthxHook is intended to be used as a PreHook for the <a href="https://github.com/splittingred/Login">Login</a> snippet by <a href="https://github.com/splittingred">@Splittingred</a>.</p>
+<p>I have also included an example loginTpl that includes the token input.</p>
+<pre><code><span class="hljs-class">[[<span class="hljs-modx-prefix">!</span><span class="hljs-modx-tag-name">Login</span>?</span> 
+    <span class="hljs-modx-property-name">&amp;loginTpl</span>=`GAuthxLoginTpl` 
+    <span class="hljs-modx-property-name">&amp;preHooks</span>=`GAuthxHook` 
+    <span class="hljs-modx-property-name">&amp;tolerance</span>=`3` 
+    <span class="hljs-modx-property-name">&amp;historyLimit</span>=`5`
+]]
+</code></pre>
+<h4>Notes</h4>
+<ol>
+<li>In order for GAuthxHook to be used you must have first logged into your context (front-end) and used the GAuthx snippet to generate an Auth Secret and set up your 2 factor authentication app.</li>
+<li>Once you have set up your app and have validated your token you will then be required to use 2 factor auth everytime you login to the front end as long as the GAuthx prehook is included in your Login call.</li>
+<li>GAuthxHook also prevents "replay" attacks by keeping a history of the previous tokens you have used and not allowing you to use them again. Using the &amp;historyLimit paramater lets you decide how many tokens it remembers.</li>
+<li>Setting the historyLimit to 0 will disable it, this is not reccomended.</li>
+<li>2Factor-Authentication is not an end all security solution, it should be combined with other efforts such as securing your pages with SSL.</li>
+</ol>
+<h4>Bugs &amp; Feature Requests</h4>
+<p>Please log any bugs / features quests on <a href="https://github.com/nick2687/GAuthx/issues">Github</a></p>
+<h5>Credit</h5>
+<p>GAuthx uses the <a href="https://github.com/PHPGangsta/GoogleAuthenticator">Google Authenticator</a> class by <a href="https://github.com/PHPGangsta">PHPGangsta</a> for generating QR Codes and validating user tokens.</p>
 
-<p>
-Go to System | Package Management on the main menu in the MODX Manager and click on the &quot;Download Extras&quot; button. That will take you to the
-Revolution Repository (AKA Web Transport Facility). Put GAuthx in the search box and press Enter. Click on the &quot;Download&quot; button, and once the package is downloaded,
- click on the &quot;Back to Package Manager&quot; button. That should bring you back to your Package Management grid. Click on the
-&quot;Install&quot; button next to GAuthx in the grid. The GAuthx package should now be installed.</p>
-
-<h3>Usage</h3>
-
-
-
-
-<a name="propertiesTable"></a>
-
-<h3>GAuthx Properties</h3>
+              
+              
+            </div>

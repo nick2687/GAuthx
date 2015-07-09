@@ -31,7 +31,7 @@ if ($modx->user->get('id') != 0) {
     
         if (!$pc) {
           
-            require_once 'core/components/gauthx/elements/vender/GoogleAuthenticator.php';
+            require_once 'core/components/gauthx/elements/plugins/GoogleAuthenticator.php';
             $ga = new GoogleAuthenticator();     
             $account = urlencode($modx->getOption('site_name', null, 'Modx'));
              

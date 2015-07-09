@@ -19,6 +19,7 @@ $components = array(
     'version' => '1.0.0',
     'release' => 'beta1',
     'author' => 'Nick Clark',
+    'authorUrl' => 'http://nickclark.ca',
     'packageDocumentationUrl' => 'https://github.com/nick2687/GAuthx/',
     'copyright' => '2015',
 
@@ -151,41 +152,26 @@ $components = array(
      * Set to hasAssets = false to skip.
      * Empty js and/or css files will be created.
      */
-    'hasAssets' => true,
+    'hasAssets' => false,
 
-    'assetsDirs' => array(
-        /* If true, a default (empty) CSS file will be created */
-        'css' => true,
-
-        /* If true, a default (empty) JS file will be created */
-        'js' => true,
-
-        'images' => true,
-        'audio' => true,
-        'video' => true,
-        'themes' => true,
-    ),
+    'assetsDirs' => array(),
     /* minify any JS files */
-    'minifyJS' => true,
+    'minifyJS' => false,
     /* Create a single JS file from all JS files */
-    'createJSMinAll' => true,
+    'createJSMinAll' => false,
     /* if this is false, regular jsmin will be used.
        JSMinPlus is slower but more reliable */
-    'useJSMinPlus' => true,
+    'useJSMinPlus' => false,
 
     /* These will automatically go under assets/components/yourcomponent/js/
        Format: directory:filename
        (no trailing slash on directory)
        if 'createCmpFiles is true, these will be ignored.
     */
-    'jsFiles' => array(
-        'gauthx.js',
-    ),
+    'jsFiles' => array(),
 
     /* Desired CSS files */
-    'cssFiles' => array(
-        'gauthx.css',
-    ),
+    'cssFiles' => array(),
 
     /* ********************************************* */
     /* Define basic directories and files to be created in project*/
@@ -293,15 +279,7 @@ $components = array(
        Built-in processor classes include getlist, create, update, duplicate,
        import, and export. */
 
-    'processors' => array(
-        'mgr/snippet:getlist',
-        'mgr/snippet:changecategory',
-        'mgr/snippet:remove',
-
-        'mgr/chunk:getlist',
-        'mgr/chunk:changecategory',
-        'mgr/chunk:remove',
-    ),
+    'processors' => array(),
 
     /* These will automatically go to core/components/yourcomponent/controllers[/directory]/filename
        Format: directory:filename */
@@ -319,13 +297,7 @@ $components = array(
     /* These will automatically go to assets/components/yourcomponent/js[/directory]/filename
        Format: directory:filename */
 
-    'cmpJsFiles' => array(
-        ':gauthx.class.js',
-        'sections:home.js',
-        'widgets:home.panel.js',
-        'widgets:snippet.grid.js',
-        'widgets:chunk.grid.js',
-    ),
+    'cmpJsFiles' => array(),
 
     /* These go to core/components/componentName/templates/
      * The format is:
@@ -333,9 +305,7 @@ $components = array(
      * content is optional
      */
 
-    'cmpTemplates' => array (
-         'mgr:<div id="gauthx-panel-home-div"></div>',
-    ),
+    'cmpTemplates' => array (),
 
 
     /* *******************************************

@@ -33,11 +33,11 @@ if ($_GET['service'] == 'logout') return true;
 
 // If user has input a username proceed, if not return error
 if ($formFields['username']) {
-$modx->log(modX::LOG_LEVEL_ERROR, 'there is a username in the field');
+
     // Get user profile
     $user = $modx->getObject('modUser', array('username' => $formFields['username']));
     if (!$user) {
-$modx->log(modX::LOG_LEVEL_ERROR, 'user does not exisit');
+
         // if the username entered doesn't exisit return error
         $errorMsg = 'The username or password you entered is incorrect. Please check the username, re-type the password, and try again.';
         $hook->addError('user',$errorMsg);
@@ -51,11 +51,11 @@ $modx->log(modX::LOG_LEVEL_ERROR, 'user does not exisit');
     $userKey = $userKeyCheck['userKey'];
     
     if ($userKey) {
-$modx->log(modX::LOG_LEVEL_ERROR, 'user key exists');
+
         // If the user has a userKey setup continue - then check if the provided token has been used by this user previously
         $submitHistory = $modx->getObject('UserHistory',array('internalKey' => $id,'previousKey' => $token));
         if ($submitHistory) {$SHC = $submitHistory->get('id');} else {$SHC = 0;}
-$modx->log(modX::LOG_LEVEL_ERROR, 'SHC =' . $SHC . '.');
+
         if ($SHC == 0) {
             // if user has not used the token before - continue - else return error
             
@@ -67,7 +67,7 @@ $modx->log(modX::LOG_LEVEL_ERROR, 'SHC =' . $SHC . '.');
             
                 // if yes add provided token to user history, clean up user history & allow user to login. - Else return error
             if ($checkResult) {
-$modx->log(modX::LOG_LEVEL_ERROR, 'user checks out!');
+
                     
                 $log = $modx->newObject('UserHistory');
                     $log->set('internalKey', $id);
@@ -76,9 +76,9 @@ $modx->log(modX::LOG_LEVEL_ERROR, 'user checks out!');
                 
                 // get count of user hisotry for user who is logging in
                 $max = $modx->getCount('UserHistory',array('internalKey' => $id));
-$modx->log(modX::LOG_LEVEL_ERROR, 'Max =' . $max . 'Limit =' . $historyLimit);                
+              
                 if ($max > $historyLimit) {
-$modx->log(modX::LOG_LEVEL_ERROR, 'Oh no max is bigger!');                     
+
                     // if count is greater than history limit remove a row ()
                     
                     $newlimit = $max - $historyLimit;
@@ -97,14 +97,14 @@ $modx->log(modX::LOG_LEVEL_ERROR, 'Oh no max is bigger!');
                
                 return true;
             } else {
-$modx->log(modX::LOG_LEVEL_ERROR, 'That Token is Invalid 1');
+
                 $errorMsg = 'That Token is Invalid';
                 $hook->addError('user',$errorMsg);
                 return false;
             }
         }
         else {
-$modx->log(modX::LOG_LEVEL_ERROR, 'That Token is Invalid 2');
+
             $errorMsg = 'That Token is Invalid';
             $hook->addError('user',$errorMsg);
             return false;
@@ -112,12 +112,12 @@ $modx->log(modX::LOG_LEVEL_ERROR, 'That Token is Invalid 2');
         
     }
     else {
-$modx->log(modX::LOG_LEVEL_ERROR, 'sall good');
+
         return true;
     }
 }
 else {
-$modx->log(modX::LOG_LEVEL_ERROR, 'wrong username pass last');
+
     $errorMsg ='The username or password you entered is incorrect. Please check the username, re-type the password, and try again.';
     $hook->addError('user',$errorMsg);
     return false;
