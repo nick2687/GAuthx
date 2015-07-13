@@ -10,6 +10,10 @@ The system also includes a class for preventing replay-attack's by making sure t
 
 You can install GAuthx via the standard MODx package manager.
 
+### Demo
+
+A demo of the GAuthx snippet can be found at: http://demo.nickclark.ca/gauthx-demo.html
+
 ## GAuthx Snippet
 
 
